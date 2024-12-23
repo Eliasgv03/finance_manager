@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <p>Your current balance: ${{ profile.initial_balance }}</p>
+    <a href="{% url 'edit-profile' %}">Edit Profile</a>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
