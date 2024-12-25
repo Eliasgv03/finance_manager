@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Edit Profile</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="container">
     <h1>Edit Profile</h1>
-    <form method="post">
+    <form method="POST" action="{% url 'users:edit_profile' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
+        <div class="form-group">
+            <label for="initial_balance">Initial Balance:</label>
+            <input type="number" step="0.01" name="initial_balance" value="{{ user.profile.initial_balance }}" required>
+        </div>
+        <button type="submit" class="btn">Save Balance</button>
     </form>
-    <a href="{% url 'profile' %}">Back to Profile</a>
-</body>
-</html>
+    <a href="{% url 'users:profile' %}" class="back-link">Back to Profile</a>
+</div>
+{% endblock %}

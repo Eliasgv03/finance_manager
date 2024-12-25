@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ form.instance.id|yesno:"Edit Tag,Create Tag" }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Save</button>
+</form>
+
+<a href="{% url 'tags:list_tags' %}" class="btn btn-back">Back to List</a>
+{% endblock %}

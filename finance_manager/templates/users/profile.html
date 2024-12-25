@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Profile</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
     <h1>Welcome, {{ user.username }}</h1>
-    <p>Your current balance: ${{ profile.initial_balance }}</p>
-    <a href="{% url 'edit-profile' %}">Edit Profile</a>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-</body>
-</html>
+    <p>Balance: ${{ user.profile.initial_balance }}</p>
+</div>
+{% endblock %}

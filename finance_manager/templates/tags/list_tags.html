@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Tags</h1>
+
+<form method="get" class="search-form">
+    <input type="text" name="search" value="{{ query }}" placeholder="Search tags" class="input-text">
+    <button type="submit" class="btn">Search</button>
+</form>
+
+<a href="{% url 'tags:create_tag' %}" class="btn btn-add">Add New Tag</a>
+
+<div class="tags-container">
+    <ul class="tags-list">
+        {% for tag in tags %}
+        <li class="tag-item" data-id="{{ tag.id }}">
+            <span class="tag-circle" style="background-color: {{ tag.color }};"></span>
+            <span class="tag-name">{{ tag.name }}</span>
+            <span class="tag-type">({{ tag.tag_type }})</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="tag-actions">
+    <button class="btn btn-edit" disabled>Edit</button>
+    <button class="btn btn-delete" disabled>Delete</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const items = document.querySelectorAll('.tag-item');
+        const editBtn = document.querySelector('.btn-edit');
+        const deleteBtn = document.querySelector('.btn-delete');
+        let selectedId = null;
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                // Deselect all items
+                items.forEach(i => i.classList.remove('selected'));
+                // Select clicked item
+                item.classList.add('selected');
+                selectedId = item.dataset.id;
+
+                // Enable buttons
+                editBtn.disabled = false;
+                deleteBtn.disabled = false;
+
+                // Set actions
+                editBtn.onclick = () => {
+                    window.location.href = `{% url 'tags:edit_tag' 0 %}`.replace('0', selectedId);
+                };
+                deleteBtn.onclick = () => {
+                    window.location.href = `{% url 'tags:delete_tag' 0 %}`.replace('0', selectedId);
+                };
+            });
+        });
+    });
+</script>
+{% endblock %}
