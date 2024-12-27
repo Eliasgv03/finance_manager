@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Currency Converter | My Finance Manager{% endblock %}
+
+{% block content %}
+<h2>Currency Converter</h2>
+
+<!-- Formulario de conversión -->
+<form method="GET" action="{% url 'currencies:convertir' %}">
+    <label for="value">Value:</label>
+    <input 
+        type="number" 
+        id="value" 
+        name="value" 
+        step="any" 
+        min="0" 
+        value="{{ value|default:1 }}" 
+        required>
+
+    <label for="from_currency">From Currency:</label>
+    <input 
+        list="currency-options" 
+        id="from_currency" 
+        name="from_currency" 
+        value="{{ from_currency|default:user_profile.default_currency|default:'USD' }}" 
+        required>
+    <datalist id="currency-options">
+        {% for currency in currencies %}
+            <option value="{{ currency }}"></option>
+        {% endfor %}
+    </datalist>
+
+    <label for="to_currency">To Currency (optional):</label>
+    <input 
+        list="currency-options" 
+        id="to_currency" 
+        name="to_currency" 
+        value="{{ to_currency|default:'' }}">
+    <datalist id="currency-options">
+        {% for currency in currencies %}
+            <option value="{{ currency }}"></option>
+        {% endfor %}
+    </datalist>
+
+    <button type="submit" class="btn btn-primary">Convert</button>
+</form>
+
+<!-- Tabla de resultados -->
+{% if conversion_data %}
+    <h3>Conversion Results:</h3>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Rate</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if single_conversion %}
+                    <!-- Mostrar resultado único -->
+                    <tr>
+                        <td>{{ to_currency }}</td>
+                        <td>{{ single_conversion.rate|floatformat:2 }}</td>
+                        <td>{{ single_conversion.converted_value|floatformat:2 }}</td>
+                    </tr>
+                {% else %}
+                    <!-- Mostrar resultados para todas las monedas -->
+                    {% for item in conversion_data %}
+                        <tr>
+                            <td>{{ item.currency }}</td>
+                            <td>{{ item.rate|floatformat:2 }}</td>
+                            <td>{{ item.converted_value|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+<!-- Mensaje de error -->
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+{% endblock %}

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Finance Manager{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tags.css' %}">
+    <link rel="stylesheet" href="{% static 'css/currencies.css' %}">
 </head>
 <body>
     <header>
@@ -14,9 +16,8 @@
                 <li><a href="{% url 'users:profile' %}" class="{% if request.path == '/users/profile/' %}active{% endif %}">Profile</a></li>
                 <li><a href="{% url 'tags:list_tags' %}" class="{% if request.path == '/tags/list_tags/' %}active{% endif %}">Manage Tags</a></li>
                 <li><a href="#" class="{% if request.path == '/history/' %}active{% endif %}">History</a></li>
-                <li><a href="#" class="{% if request.path == '/currencies/' %}active{% endif %}">Currencies</a></li>
+                <li><a href="{% url 'currencies:convertir' %}" class="{% if request.path == '/currencies/convertir/' %}active{% endif %}">Currencies</a></li>
                 <li><a href="#" class="{% if request.path == '/reports/' %}active{% endif %}">Reports</a></li>
-                <!-- Botones adicionales -->
                 <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
                 <li>
                     <a href="{% url 'users:logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -27,7 +28,6 @@
             </ul>
         </nav>
     </header>
-    
 
     <main>
         {% block content %}
@@ -39,3 +39,4 @@
     </footer>
 </body>
 </html>
+

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tags',
     'users',
     'transactions',
+    'currencies',
     'rest_framework',
     'rest_framework.authtoken',
     
@@ -143,3 +144,6 @@ LOGIN_REDIRECT_URL = '/users/profile/'  # Ajusta según tu URL
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# settings.py
+EXCHANGE_API_KEY = '8e4804c7144aee8bd44d5a91'
