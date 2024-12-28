@@ -53,4 +53,4 @@ class LoginForm(forms.Form):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['initial_balance']
+        fields = ['initial_balance' , 'default_currency']

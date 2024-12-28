@@ -1,147 +1,99 @@
-/* Estilos para el título de la página */
-.page-title {
-    text-align: center;
-    font-size: 2rem;
-    color: #003366;
-    margin-bottom: 1.5rem;
-}
-
-/* Contenedor de las etiquetas */
 .tags-container {
-    max-width: 900px;
-    margin: 3rem auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: center; /* Centrar horizontalmente */
 }
 
-/* Estilo para el formulario de búsqueda */
-.search-form {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-    justify-content: center;
-}
-
-/* Estilo para los campos del formulario */
-.input-text {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-/* Estilo para los botones */
-.btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
-/* Botón para agregar */
+/* Botón para agregar una etiqueta */
 .btn-add {
     background-color: #28a745;
     color: white;
-    align-self:center;
 }
 
 .btn-add:hover {
     background-color: #218838;
 }
 
-/* Contenedor para la tabla con scroll */
+/* Tabla de etiquetas */
 .table-wrapper {
     max-height: 300px;
     overflow-y: auto;
     width: 100%;
+    border-radius: 4px;
+    background: #f8f9fa; /* Fondo sutil para contraste */
 }
 
-/* Tabla de etiquetas */
 .tags-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0 auto; /* Centrar la tabla */
+    text-align: center;
+    font-size: 1rem;
 }
 
-/* Encabezados de la tabla */
 .tags-table th, .tags-table td {
-    text-align: center; /* Centrar el texto en las celdas */
     padding: 0.75rem;
     border-bottom: 1px solid #ddd;
 }
 
-/* Fijar los encabezados de la tabla al hacer scroll */
+/* Estilo para los encabezados de tabla */
 .tags-table th {
     background-color: #003366;
     color: white;
     position: sticky;
     top: 0;
-    z-index: 1; /* Asegurar que los encabezados se mantengan sobre el contenido */
+    z-index: 1;
 }
 
-/* Estilo para las filas seleccionadas */
-.tags-table .tag-item.selected {
+/* Fila seleccionada */
+.tag-item.selected {
     background-color: #e0f3ff;
+    font-weight: bold;
 }
 
-/* Estilo para las celdas de la tabla */
-.tags-table td {
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-/* Estilo para las acciones de las etiquetas */
+/* Botones de acción (Editar, Eliminar) */
 .tag-actions {
     display: flex;
+    justify-content: center;
     gap: 1rem;
 }
 
-/* Estilos para el formulario de agregar etiqueta */
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* ===== Form Page ===== */
+
+/* Contenedor del formulario */
 .form-container {
     max-width: 600px;
-    margin: 2rem auto;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Título del formulario */
-.form-title {
     text-align: center;
-    font-size: 1.8rem;
-    color: #003366;
-    margin-bottom: 1.5rem;
 }
 
-/* Estilo para los campos del formulario */
 .form-fields {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
 }
 
-/* Acciones del formulario */
 .form-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
+    justify-content: center;
+    gap: 1rem;
 }
 
-/* Botones */
 .btn-primary {
     background-color: #007bff;
     color: white;
@@ -151,48 +103,20 @@
     background-color: #0056b3;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
+/* ===== Delete Confirmation Page ===== */
 
 /* Contenedor de confirmación */
 .confirmation-container {
     max-width: 500px;
-    margin: 3rem auto;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-/* Título de confirmación */
-.confirmation-title {
-    font-size: 1.8rem;
-    color: #dc3545;
-    margin-bottom: 1rem;
-}
-
-/* Texto de confirmación */
 .confirmation-text {
     font-size: 1.2rem;
     color: #333;
     margin-bottom: 2rem;
 }
 
-/* Formulario de confirmación */
-.confirmation-form {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* Botón de borrar */
 .btn-danger {
     background-color: #dc3545;
     color: white;
@@ -202,7 +126,6 @@
     background-color: #c82333;
 }
 
-/* Botón de cancelar */
 .btn-secondary {
     background-color: #6c757d;
     color: white;

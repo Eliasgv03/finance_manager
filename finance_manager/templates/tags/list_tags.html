@@ -4,11 +4,7 @@
 <h1 class="page-title">Your Tags</h1>
 
 <div class="tags-container">
-    <form method="get" class="search-form">
-        <input type="text" name="search" value="{{ query }}" placeholder="Search tags" class="input-text"> 
-        <button type="submit" class="btn">Search</button>
-       
-    </form>
+    
 
     <button onclick="window.location.href='{% url 'tags:create_tag' %}'" class="btn btn-add">Add New Tag</button>
 

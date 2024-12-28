@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="profile-container">
-    <h1>Welcome, {{ user.username }}</h1>
-    <p>Balance: ${{ user.profile.initial_balance }}</p>
+    <h1 class="profile-title">Welcome, {{ user.username }}</h1>
+    <p class="profile-balance">Balance: ${{ user.profile.initial_balance }}</p>
 </div>
 {% endblock %}

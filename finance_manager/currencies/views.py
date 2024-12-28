@@ -4,16 +4,17 @@ from users.models import UserProfile
 from django.conf import settings
 
 def convert_view(request):
+    
+    user_profile = UserProfile.objects.get(user=request.user)
     # Obtener valores de los parámetros GET
     value = float(request.GET.get('value', 1))  # Valor predeterminado: 1
-    from_currency_code = request.GET.get('from_currency', 'USD')  # Moneda predeterminada: USD
+    from_currency_code = request.GET.get('from_currency', user_profile.default_currency.code )  # Moneda predeterminada: USD
     to_currency_code = request.GET.get('to_currency', None)  # Moneda de destino (opcional)
 
     # Obtener el perfil del usuario (si aplica)
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        user_profile = None
+    
+    
+  
 
     # API key y URL base
     api_key = settings.EXCHANGE_API_KEY

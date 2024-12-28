@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, Currency
 from .forms import RegisterForm, LoginForm, EditProfileForm
 from django.contrib import messages
 import requests
@@ -67,6 +67,7 @@ def profile_view(request):
 @login_required
 def edit_initial_balance_view(request):
     profile = request.user.profile
+    currencies = Currency.objects.all()  
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -74,5 +75,8 @@ def edit_initial_balance_view(request):
             return redirect('users:profile')
     else:
         form = EditProfileForm(instance=profile)
-    return render(request, 'users/edit_profile.html', {'form': form})
+    return render(request, 'users/edit_profile.html', {
+        'form': form, 
+        'currencies': currencies,
+    })
 
