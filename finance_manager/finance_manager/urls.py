@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
+from django.shortcuts import redirect
+
+def redirect_to_login(request):
+    return redirect('users/login')  # 'login' debe ser el nombre de tu vista de inicio de sesión
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('tags/', include('tags.urls')),
     path('currencies/', include('currencies.urls')),
+    path('transactions/', include('transactions.urls')),
+    path('', redirect_to_login),  # Redirigir al inicio de sesión por defecto
+   
 ]

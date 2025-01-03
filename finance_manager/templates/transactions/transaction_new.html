@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Transaction{% endblock %}
+
+{% block content %}
+<div class="transaction-form-container">
+    <h1>Add New Transaction</h1>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="form-errors">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ field|capfirst }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" class="styled-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Transaction Type</label>
+            <div class="type-toggle">
+                <input type="radio" id="income" name="type" value="income" 
+                       {% if form.type.value == 'income' or not form.type.value %}checked{% endif %} 
+                       onclick="toggleTags('income')">
+                <label for="income" class="btn-toggle">Income</label>
+                <input type="radio" id="expense" name="type" value="expense" 
+                       {% if form.type.value == 'expense' %}checked{% endif %} 
+                       onclick="toggleTags('expense')">
+                <label for="expense" class="btn-toggle">Expense</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tag">Tag (Type)</label>
+            <select id="tag" name="tag" class="form-control">
+                <optgroup id="income-tags">
+                    {% for tag in income_tags %}
+                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};">
+                            {{ tag.name }}
+                        </option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup id="expense-tags" style="display: none;">
+                    {% for tag in expense_tags %}
+                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};">
+                            {{ tag.name }}
+                        </option>
+                    {% endfor %}
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" class="form-control" required 
+                  value="{{ form.date.value|default:form.fields.date.initial }}">
+
+        </div>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select id="currency" name="currency" class="form-control">
+                {% for currency in currencies %}
+                    <option value="{{ currency.id }}" 
+                            {% if currency.id == default_currency %}selected{% endif %}>
+                        {{ currency.name }} ({{ currency.code }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input id="amount" name="amount" type="number" step="0.01" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control" aria-label="Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectedType = document.querySelector('input[name="type"]:checked').value;
+        toggleTags(selectedType);
+    });
+
+    function toggleTags(type) {
+        const incomeTags = document.getElementById('income-tags');
+        const expenseTags = document.getElementById('expense-tags');
+
+        if (type === 'income') {
+            incomeTags.style.display = 'block';
+            expenseTags.style.display = 'none';
+        } else if (type === 'expense') {
+            incomeTags.style.display = 'none';
+            expenseTags.style.display = 'block';
+        }
+    }
+</script>
+{% endblock %}

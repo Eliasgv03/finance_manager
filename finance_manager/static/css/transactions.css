@@ -1,0 +1,250 @@
+/* === Contenedor del Perfil === */
+.profile-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-balance {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* === Botón para Añadir Transacciones === */
+.add-transaction-button {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.add-transaction-button:hover {
+    background-color: #0056b3;
+}
+
+/* === Contenedor de Historial de Transacciones === */
+.transaction-history-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* === Filtros === */
+.filters-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.filters-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid  #003366; 
+    background-color: #ffffff; 
+    color: #000000;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;;
+}
+
+.filters-form select:hover {
+    border-color: #0056b3; /* Azul más claro */
+    
+}
+
+.filters-form select:focus {
+    outline: none;
+    border-color: #007bff; /* Azul brillante */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Resplandor azul */
+}
+
+
+/* === Tablas === */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table th {
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    position:sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+.transaction-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.transaction-table tr.selected {
+    background-color: #e0f3ff;
+    font-weight: bold;
+}
+
+/* === Botones de Acción === */
+/* === Botones de Acción === */
+.transaction-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.transaction-actions .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 120px; /* Tamaño uniforme */
+    text-align: center;
+}
+
+.transaction-actions .btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.transaction-actions .btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* === Mensajes === */
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* === Campos de Entrada === */
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* === Botones de Tipo (Toggle) === */
+.type-toggle {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-toggle {
+    display: inline-block;
+    width: 100px;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .btn-toggle {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* === Modal de Confirmación === */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1050;
+}
+
+.modal.active {
+    display: block;
+}
+
+
+.modal-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-content button#confirmDelete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-content button#cancelDelete {
+    background-color: #6c757d;
+    color: white;
+}

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/tags.css' %}">
     <link rel="stylesheet" href="{% static 'css/currencies.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/transactions.css' %}">
 </head>
 <body>
     <div class="page-wrapper">
@@ -17,8 +18,8 @@
                 <ul>
                     <li><a href="{% url 'users:profile' %}" class="{% if request.path == '/users/profile/' %}active{% endif %}">Profile</a></li>
                     <li><a href="{% url 'tags:list_tags' %}" class="{% if request.path == '/tags/list_tags/' %}active{% endif %}">Manage Tags</a></li>
-                    <li><a href="#" class="{% if request.path == '/history/' %}active{% endif %}">History</a></li>
-                    <li><a href="{% url 'currencies:convertir' %}" class="{% if request.path == '/currencies/convertir/' %}active{% endif %}">Currencies</a></li>
+                    <li><a href="{% url 'transactions:transaction_list' %}" class="{% if request.path == '/transactions/transaction_list/' %}active{% endif %}">History</a></li>
+                    <li><a href="{% url 'currencies:convert' %}" class="{% if request.path == '/currencies/convert/' %}active{% endif %}">Currencies</a></li>
                     <li><a href="#" class="{% if request.path == '/reports/' %}active{% endif %}">Reports</a></li>
                     <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
                     <li>

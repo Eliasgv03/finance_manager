@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware', 
 ]
 
 ROOT_URLCONF = 'finance_manager.urls'
@@ -147,3 +148,5 @@ AUTHENTICATION_BACKENDS = [
 
 # settings.py
 EXCHANGE_API_KEY = '8e4804c7144aee8bd44d5a91'
+
+

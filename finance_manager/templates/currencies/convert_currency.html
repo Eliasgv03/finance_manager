@@ -5,7 +5,7 @@
 {% block content %}
 <div class="currency-converter-container text-center">
     <h2>Currency Converter</h2>
-    <form method="GET" action="{% url 'currencies:convertir' %}" class="converter-form">
+    <form method="GET" action="{% url 'currencies:convert' %}" class="converter-form">
         {% csrf_token %}
         <div class="form-group">
             <label for="value">Value:</label>
@@ -67,7 +67,7 @@
                         <th>Result</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="tablebody">
                     {% if single_conversion %}
                         <tr>
                             <td>{{ to_currency }}</td>

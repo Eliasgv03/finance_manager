@@ -5,6 +5,7 @@
 {% block content %}
 <div class="profile-container">
     <h1 class="profile-title">Welcome, {{ user.username }}</h1>
-    <p class="profile-balance">Balance: ${{ user.profile.initial_balance }}</p>
+    <p class="profile-balance">Balance: ${{ user.profile.get_total_balance }}</p>
+    <button class="add-transaction-button" onclick="window.location.href='{% url 'transactions:transaction_create' %}'">+</button>
 </div>
 {% endblock %}
