@@ -1,150 +1,134 @@
-/* === Contenedor del Perfil === */
-.profile-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.profile-balance {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-/* === Botón para Añadir Transacciones === */
-.add-transaction-button {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.5em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.add-transaction-button:hover {
-    background-color: #0056b3;
-}
-
-/* === Contenedor de Historial de Transacciones === */
+/* Contenedor Principal */
 .transaction-history-container {
-    width: 80%;
-    margin: 20px auto;
+    max-width: 900px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
 }
 
-/* === Filtros === */
-.filters-container {
+/* Título */
+.page-title {
+    font-size: 2rem;
+    color: #003366;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+/* Filtros */
+.filters {
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center; /* Alinear verticalmente */
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .filters-form select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid  #003366; 
-    background-color: #ffffff; 
-    color: #000000;
-    font-size: 14px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;;
-}
-
-.filters-form select:hover {
-    border-color: #0056b3; /* Azul más claro */
-    
+    height: 40px; /* Igual altura que los botones */
+    padding: 0.6rem 1.2rem; /* Igual espacio interno */
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 120px; /* Igual ancho que los botones */
 }
 
 .filters-form select:focus {
-    outline: none;
-    border-color: #007bff; /* Azul brillante */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8); /* Resplandor azul */
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Tabla */
+.table-wrapper {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-/* === Tablas === */
 .transaction-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .transaction-table th {
     background-color: #003366;
     color: white;
-    font-weight: bold;
-    padding: 10px;
-    text-align: center;
-    position:sticky;
+    padding: 0.8rem;
+    position: sticky;
     top: 0;
     z-index: 1;
 }
 
-
 .transaction-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+    padding: 0.6rem;
+    border-bottom: 1px solid #ddd;
 }
 
-.transaction-table tr.selected {
+.transaction-table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.transaction-table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.transaction-table .transaction-item.selected {
     background-color: #e0f3ff;
     font-weight: bold;
 }
 
-/* === Botones de Acción === */
-/* === Botones de Acción === */
+/* Botones */
 .transaction-actions {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1rem;
 }
 
 .transaction-actions .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 120px; /* Tamaño uniforme */
+    background-color: #007bff;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
     text-align: center;
+    height: 40px; /* Mantener consistencia con filtros */
+    width: 120px; /* Ancho uniforme */
 }
 
 .transaction-actions .btn:hover {
     background-color: #0056b3;
-    transform: scale(1.05);
 }
 
 .transaction-actions .btn[disabled] {
     background-color: #ccc;
     cursor: not-allowed;
+    transition: none;
 }
 
-
-/* === Mensajes === */
+/* Mensajes */
 .messages {
     list-style: none;
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
 .message {
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
 }
 
 .message.success {
@@ -159,51 +143,154 @@
     border: 1px solid #f5c6cb;
 }
 
-/* === Campos de Entrada === */
+/* Responsividad */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters-form select,
+    .transaction-actions .btn {
+        width: 100%;
+        font-size: 0.85rem;
+    }
+}
+/* Contenedor Principal */
+.transaction-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título */
+.page-title {
+    font-size: 2rem;
+    color: #003366;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+/* Formulario */
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center; /* Centramos todos los elementos */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Etiquetas centradas */
+}
+
+.form-control {
+    width: 300px;
+    max-width: 450px; /* Limitar ancho máximo */
+    height: 30px; /* Altura uniforme para todos */
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center; /* Centrar texto */
+    background: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control2 {
+    width: 333px;
+    max-width: 500px; /* Limitar ancho máximo */
+    height: 50px; /* Altura uniforme para todos */
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center; /* Centrar texto */
+    background: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Campo Descripción */
 textarea {
-    width: 100%;
-    height: 100px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: none;
+    width: 100px;
+    max-width: 500px;
+    height: 150px; /* Altura específica */
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    text-align: center; /* Texto centrado */
+    resize: none; /* Deshabilitar redimensionamiento */
 }
 
-input[type="date"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
+/* Botón de Guardar */
+.btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px;
+    width: 120px;
+    text-decoration: none; /* Elimina subrayado en <a> */
+    border: none; /* Quitar bordes */
+    text-align: center;
 }
 
-/* === Botones de Tipo (Toggle) === */
+.btn-success {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #0056b3;
+}
+
+/* Botones de Tipo */
 .type-toggle {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.btn-toggle {
-    display: inline-block;
-    width: 100px;
-    padding: 0.5rem 1rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f5f5f5;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-toggle:hover {
-    background-color: #e0e0e0;
+    gap: 1.5rem;
+    justify-content: center; /* Centramos los botones de tipo */
+    width: 100%;
 }
 
 input[type="radio"] {
     display: none;
+}
+
+input[type="radio"] + .btn-toggle {
+    display: inline-block;
+    width: 100px; /* Botones más grandes */
+    height: 30px; /* Altura uniforme */
+    padding: 0.6rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    line-height: 30px; /* Centrar texto verticalmente */
+    
 }
 
 input[type="radio"]:checked + .btn-toggle {
@@ -212,39 +299,49 @@ input[type="radio"]:checked + .btn-toggle {
     border-color: #007bff;
 }
 
-/* === Modal de Confirmación === */
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1050;
+/* Mensajes */
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
 }
 
-.modal.active {
-    display: block;
+.message {
+    padding: 0.6rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-
-.modal-content button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
-.modal-content button#confirmDelete {
-    background-color: #dc3545;
-    color: white;
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
-.modal-content button#cancelDelete {
-    background-color: #6c757d;
-    color: white;
+/* Responsividad */
+@media (max-width: 768px) {
+    .transaction-form-container {
+        padding: 1rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    input[type="radio"] + .btn-toggle {
+        width: 120px; /* Botones más pequeños en pantallas pequeñas */
+    }
+
+    textarea {
+        height: 80px; /* Reducir altura en pantallas pequeñas */
+    }
 }
+

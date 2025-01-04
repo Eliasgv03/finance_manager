@@ -1,7 +1,7 @@
-/* Estilos comunes */
+/* Estilo Global */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,33 +10,62 @@ body {
     min-height: 100vh;
 }
 
-/* Contenedor principal */
+/* Contenedores */
 .profile-container, .edit-profile-container {
     max-width: 500px;
     margin: auto;
     padding: 2rem;
     background: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-/* Títulos */
 .profile-title, .edit-profile-title {
     font-size: 2rem;
     color: #003366;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: bold;
 }
 
-/* Balance de usuario */
+/* Balance */
 .profile-balance {
     font-size: 1.5rem;
-    color: #007bff;
     font-weight: bold;
+}
+
+.profile-balance.positive {
+    color: #28a745; /* Verde */
+}
+
+.profile-balance.negative {
+    color: #dc3545; /* Rojo */
+}
+
+/* Botón flotante */
+.add-transaction-button {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.add-transaction-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
 }
 
 /* Formulario */
@@ -44,20 +73,24 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+}
+.styled-form {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 1.5rem;
 }
-
 .form-group {
-    width: 100%;
-    max-width: 400px;
     display: flex;
     flex-direction: column;
-    text-align: left;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
 }
 
 label {
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 0.5rem;
     font-size: 1rem;
     color: #003366;
@@ -70,38 +103,37 @@ input, select {
     border-radius: 5px;
     font-size: 1rem;
     background-color: #f9f9f9;
-    text-align: center;
+    box-sizing: border-box;
 }
 
 input:focus, select:focus {
     border-color: #007bff;
-    outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
 }
 
-/* Botón */
+/* Botones */
 .btn {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
     transition: background-color 0.3s ease;
+    height: 40px;
+    width: 120px;
+    text-decoration: none; /* Elimina subrayado en <a> */
+    border: none; /* Quitar bordes */
+    text-align: center;
+    margin-bottom:1rem;
 }
 
 .btn:hover {
     background-color: #0056b3;
 }
 
-/* Enlace de retroceso */
+/* Link */
 .back-link {
-    display: block;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     font-size: 0.9rem;
     color: #007bff;
     text-decoration: none;
@@ -111,4 +143,21 @@ input:focus, select:focus {
 
 .back-link:hover {
     color: #0056b3;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .profile-container, .edit-profile-container {
+        padding: 1rem;
+    }
+
+    .profile-title, .edit-profile-title {
+        font-size: 1.5rem;
+    }
+
+    .add-transaction-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3em;
+    }
 }

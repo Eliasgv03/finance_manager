@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Transaction{% endblock %}
+{% block title %}
+    {% if transaction %}Edit Transaction{% else %}Add Transaction{% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="transaction-form-container">
-    <h1>Add New Transaction</h1>
+    <h1 class="page-title">
+        {% if transaction %}Edit Transaction{% else %}Add New Transaction{% endif %}
+    </h1>
 
     {% if messages %}
         <ul class="messages">
@@ -28,11 +32,13 @@
 
     <form method="post" class="styled-form">
         {% csrf_token %}
+        
+        <!-- Tipo de Transacción -->
         <div class="form-group">
             <label>Transaction Type</label>
             <div class="type-toggle">
                 <input type="radio" id="income" name="type" value="income" 
-                       {% if form.type.value == 'income' or not form.type.value %}checked{% endif %} 
+                       {% if form.type.value == 'income' %}checked{% endif %} 
                        onclick="toggleTags('income')">
                 <label for="income" class="btn-toggle">Income</label>
                 <input type="radio" id="expense" name="type" value="expense" 
@@ -41,51 +47,63 @@
                 <label for="expense" class="btn-toggle">Expense</label>
             </div>
         </div>
+        
+        <!-- Etiqueta -->
         <div class="form-group">
             <label for="tag">Tag (Type)</label>
-            <select id="tag" name="tag" class="form-control">
+            <select id="tag" name="tag" class="form-control2">
                 <optgroup id="income-tags">
                     {% for tag in income_tags %}
-                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};">
+                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};"
+                            {% if tag.id == form.tag.value %}selected{% endif %}>
                             {{ tag.name }}
                         </option>
                     {% endfor %}
                 </optgroup>
                 <optgroup id="expense-tags" style="display: none;">
                     {% for tag in expense_tags %}
-                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};">
+                        <option value="{{ tag.id }}" style="color: {{ tag.color|default:'#000000' }};"
+                            {% if tag.id == form.tag.value %}selected{% endif %}>
                             {{ tag.name }}
                         </option>
                     {% endfor %}
                 </optgroup>
             </select>
         </div>
+        
+        <!-- Fecha -->
         <div class="form-group">
             <label for="date">Date</label>
             <input id="date" name="date" type="date" class="form-control" required 
-                  value="{{ form.date.value|default:form.fields.date.initial }}">
-
+                   value="{{ form.date.value }}">
         </div>
-
+        
+        <!-- Moneda -->
         <div class="form-group">
             <label for="currency">Currency</label>
-            <select id="currency" name="currency" class="form-control">
+            <select id="currency" name="currency" class="form-control2">
                 {% for currency in currencies %}
                     <option value="{{ currency.id }}" 
-                            {% if currency.id == default_currency %}selected{% endif %}>
+                            {% if currency.id == form.currency.value %}selected{% endif %}>
                         {{ currency.name }} ({{ currency.code }})
                     </option>
                 {% endfor %}
             </select>
         </div>
+        
+        <!-- Monto -->
         <div class="form-group">
             <label for="amount">Amount</label>
-            <input id="amount" name="amount" type="number" step="0.01" class="form-control" required>
+            <input id="amount" name="amount" type="number" step="0.01" class="form-control" required
+                   value="{{ form.amount.value }}">
         </div>
+        
+        <!-- Descripción -->
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control" aria-label="Description"></textarea>
+            <textarea id="description" name="description" class="form-control" rows="3">{{ form.description.value }}</textarea>
         </div>
+        
         <button type="submit" class="btn btn-success">Save</button>
     </form>
 </div>

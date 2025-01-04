@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}Tags{% endblock %}
+
 {% block content %}
-<h1 class="page-title">Your Tags</h1>
-
 <div class="tags-container">
-    
+    <h1 class="page-title">Tags</h1>
 
-    <button onclick="window.location.href='{% url 'tags:create_tag' %}'" class="btn btn-add">Add New Tag</button>
+    <button onclick="window.location.href='{% url 'tags:create_tag' %}'" class="btn btn-primary">Add Tag</button>
 
     <div class="table-wrapper">
         <table class="tags-table">
@@ -21,6 +21,10 @@
                 <tr class="tag-item" data-id="{{ tag.id }}">
                     <td style="color: {{ tag.color }};">{{ tag.name }}</td>
                     <td>{{ tag.tag_type }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No tags found. Add one to get started.</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -52,7 +56,9 @@
                     window.location.href = `{% url 'tags:edit_tag' 0 %}`.replace('0', selectedId);
                 };
                 deleteBtn.onclick = () => {
-                    window.location.href = `{% url 'tags:delete_tag' 0 %}`.replace('0', selectedId);
+                    if (confirm('Are you sure you want to delete this tag?')) {
+                        window.location.href = `{% url 'tags:delete_tag' 0 %}`.replace('0', selectedId);
+                    }
                 };
             });
         });

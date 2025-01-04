@@ -1,132 +1,111 @@
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #333;
+/* Contenedor Principal */
+.currency-converter-container {
+    max-width: 800px; 
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y:hidden;
+    overflow-x:hidden;
+    scrollbar-width: none;
 }
 
-.page-wrapper {
+/* Títulos */
+.converter-title {
+    font-size: 2rem; /* Tamaño ligeramente mayor */
+    color: #003366;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Formulario */
+.converter-form {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    align-items: center;
+    gap: 1rem;
 }
 
-/* Header Styles */
-header {
-    background-color: #003366;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 2rem;
-    position: fixed;
-    top: 0;
+.form-group {
     width: 100%;
-    z-index: 100;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    text-align: left;
 }
 
-header nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-header nav ul li {
-    margin: 0 1rem;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-header nav ul li a:hover,
-header nav ul li a.active {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-/* Profile Menu */
-.profile-menu {
-    position: relative;
-}
-
-.profile-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s;
-}
-
-.profile-button:hover {
-    transform: scale(1.1);
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 50px; /* Ajusta para que el menú esté debajo del ícono */
-    right: 0;
-    background-color: white;
-    color: #333;
+.currency-input {
+    width: 100%;
+    padding: 0.6rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    z-index: 1000;
+    font-size: 1rem;
+    background-color: #f9f9f9;
 }
 
-.dropdown-menu a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #eee;
+.currency-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Botón Convert */
+.converter-btn {
+    width: 150px;
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.dropdown-menu a:last-child {
-    border-bottom: none;
+.converter-btn:hover {
+    background-color: #0056b3;
 }
 
-.dropdown-menu a:hover {
-    background-color: #f4f4f4;
+/* Tabla */
+
+
+.currency-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem; /* Tamaño de fuente compacto */
+    text-align: center;
 }
 
-/* Mostrar menú desplegable */
-.dropdown-menu.show {
-    display: block;
-}
-
-/* Main Content */
-main {
-    margin: 6rem auto;
-    padding: 2rem;
-    max-width: 800px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
-
-/* Footer */
-footer {
+.currency-table th {
     background-color: #003366;
     color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: auto;
+    padding: 0.5rem ; /* Incrementa el padding vertical */
+    position: sticky; /* Encabezado fijo */
+    top: 0;
+    z-index: 1;
+    min-height: 10px; /* Altura mínima adicional (opcional) */
+    font-size: 1rem; /* Ajustar tamaño de fuente si lo deseas */
+}
+
+
+.currency-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.currency-table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.currency-table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Mensaje de Error */
+.currency-error {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 1rem;
 }

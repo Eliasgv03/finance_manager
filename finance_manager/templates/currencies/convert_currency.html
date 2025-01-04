@@ -3,8 +3,8 @@
 {% block title %}Currency Converter | My Finance Manager{% endblock %}
 
 {% block content %}
-<div class="currency-converter-container text-center">
-    <h2>Currency Converter</h2>
+<main class="currency-converter-container">
+    <h1 class="converter-title">Currency Converter</h1>
     <form method="GET" action="{% url 'currencies:convert' %}" class="converter-form">
         {% csrf_token %}
         <div class="form-group">
@@ -16,10 +16,10 @@
                 step="any" 
                 min="0" 
                 value="{{ value|default:1 }}" 
-                class="form-control"
+                class="form-control currency-input"
                 required>
         </div>
-        
+
         <div class="form-group">
             <label for="from_currency">From Currency:</label>
             <input 
@@ -27,7 +27,7 @@
                 id="from_currency" 
                 name="from_currency" 
                 value="{{ from_currency|default:user_profile.default_currency.code }}"
-                class="form-control"
+                class="form-control currency-input"
                 required>
             <datalist id="currency-options">
                 {% for currency in currencies %}
@@ -43,7 +43,7 @@
                 id="to_currency" 
                 name="to_currency" 
                 value="{{ to_currency|default:'' }}"
-                class="form-control">
+                class="form-control currency-input">
             <datalist id="currency-options">
                 {% for currency in currencies %}
                     <option value="{{ currency }}"></option>
@@ -51,15 +51,13 @@
             </datalist>
         </div>
 
-        <button type="submit" class="btn btn-primary">Convert</button>
+        <button type="submit" class="btn btn-primary converter-btn">Convert</button>
     </form>
 
-    <hr>
-
     {% if conversion_data %}
-        <h3>Conversion Results:</h3>
+        <h2> Conversion Results:</h2>
         <div class="table-wrapper">
-            <table class="table table-striped">
+            <table class="currency-table">
                 <thead>
                     <tr>
                         <th>Currency</th>
@@ -67,7 +65,7 @@
                         <th>Result</th>
                     </tr>
                 </thead>
-                <tbody class="tablebody">
+                <tbody>
                     {% if single_conversion %}
                         <tr>
                             <td>{{ to_currency }}</td>
@@ -89,7 +87,7 @@
     {% endif %}
 
     {% if error %}
-        <p class="text-danger">{{ error }}</p>
+        <p class="currency-error">{{ error }}</p>
     {% endif %}
-</div>
+</main>
 {% endblock %}

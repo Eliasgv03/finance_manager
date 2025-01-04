@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block title %}Delete Tag{% endblock %}
 
+{% block content %}
 <div class="confirmation-container">
     <h1 class="confirmation-title">Delete Tag</h1>
     <p class="confirmation-text">
@@ -9,9 +10,14 @@
     </p>
     
     <form method="post" class="confirmation-form">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        <a href="{% url 'tags:list_tags' %}" class="btn btn-secondary">Cancel</a>
+      
+    {% csrf_token %}
+    <div class "confirmation-buttons">
+        <button type="submit" class="btn btn-primary action-btn">Yes</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'tags:list_tags' %}'">Cancel</button>
+
+    </div>  
     </form>
 </div>
 {% endblock %}
+

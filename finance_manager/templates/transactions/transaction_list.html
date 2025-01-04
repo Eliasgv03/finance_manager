@@ -19,21 +19,25 @@
     <div class="filters-container">
         <form method="get" class="filters-form">
             <div class="filters">
+                <!-- Filtro de tipo -->
                 <select name="filter_type" class="form-control auto-submit">
                     <option value="">Filter by Type</option>
                     <option value="income" {% if request.GET.filter_type == 'income' %}selected{% endif %}>Income</option>
                     <option value="expense" {% if request.GET.filter_type == 'expense' %}selected{% endif %}>Expense</option>
                 </select>
+    
+                <!-- Filtro de etiqueta -->
                 <select name="filter_tag" class="form-control auto-submit">
                     <option value="">Filter by Tag</option>
                     {% for tag in tags %}
-                        <option value="{{ tag.id }}" style="color: {{ tag.color }};" 
+                        <option value="{{ tag.id }}" style="color: {{ tag.color }};"
                             {% if request.GET.filter_tag == tag.id|stringformat:"s" %}selected{% endif %}>
                             {{ tag.name }}
                         </option>
                     {% endfor %}
                 </select>
-                
+    
+                <!-- Filtro de periodo -->
                 <select name="filter_date" class="form-control auto-submit">
                     <option value="">Filter by Period</option>
                     <option value="last_week" {% if request.GET.filter_date == 'last_week' %}selected{% endif %}>Last Week</option>
@@ -45,6 +49,7 @@
             </div>
         </form>
     </div>
+    
 
     <!-- Tabla de transacciones -->
     <div class="table-wrapper">

@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Transaction, Tag, Currency
 from .forms import TransactionForm
@@ -51,11 +52,12 @@ def transaction_create(request):
         else:
             messages.error(request, "There was an error saving the transaction. Please check the form.")
     else:
-        # Configuración inicial: moneda por defecto y fecha actual
+        
+        today = date.today().strftime('%Y-%m-%d')
         default_currency_id = getattr(request.user.profile.default_currency, 'id', None)
         initial_data = {
             'currency': default_currency_id,
-            'date': timezone.now().date(),
+            'date': today ,
         }
         form = TransactionForm(user=request.user, initial=initial_data)
 
@@ -75,13 +77,11 @@ def transaction_create(request):
 
 @login_required
 def transaction_edit(request, pk):
-   
     transaction = get_object_or_404(Transaction, pk=pk, user=request.user)
     tags = Tag.objects.filter(user=request.user)
     expense_tags = tags.filter(tag_type='expense')
     income_tags = tags.filter(tag_type='income')
     currencies = Currency.objects.all()
-    currency_id = transaction.currency.id 
 
     if request.method == 'POST':
         form = TransactionForm(request.POST, instance=transaction, user=request.user)
@@ -93,16 +93,23 @@ def transaction_edit(request, pk):
         else:
             messages.error(request, "Please correct the errors below.")
     else:
-        form = TransactionForm(instance=transaction, user=request.user)
+        
+        today = transaction.date
+        default_currency_id = transaction.currency
+        
+        initial_data = {
+            'currency': default_currency_id,
+            'date': today ,
+        }
+        
+        form = TransactionForm(instance=transaction, user=request.user , initial=initial_data)
 
     return render(request, 'transactions/transaction_new.html', {
         'form': form,
         'expense_tags': expense_tags,
         'income_tags': income_tags,
         'currencies': currencies,
-        'transaction': transaction, 
-        'default_currency': currency_id,
-        
+        'transaction': transaction,
     })
 
 

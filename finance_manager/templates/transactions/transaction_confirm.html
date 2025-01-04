@@ -3,13 +3,20 @@
 {% block title %}Delete Transaction{% endblock %}
 
 {% block content %}
-<div class="confirm-delete-container">
+<div class="confirmation-container">
     <h1>Confirm Deletion</h1>
-    <p>Are you sure you want to delete this transaction?</p>
-    <form method="post">
+    <p class="confirmation-text">
+        Are you sure you want to delete this transaction ?
+    </p>
+    <form method="post" class="confirmation-form">
         {% csrf_token %}
-        <button type="submit" class="btn btn-confirm">Yes, Delete</button>
-        <a href="{% url 'transactions:transaction_list' %}" class="btn btn-cancel">Cancel</a>
+        <div class "confirmation-buttons">
+            <button type="submit" class="btn btn-primary action-btn">Yes</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'tags:list_tags' %}'">Cancel</button>   
+        </div>  
+        </form>
     </form>
 </div>
 {% endblock %}
+
+

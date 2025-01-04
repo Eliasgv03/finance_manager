@@ -1,5 +1,5 @@
-/* Authentication Styles */
-.login-container {
+/* General Styles for Authentication Pages */
+.auth-container {
     max-width: 400px;
     margin: 5rem auto;
     background: white;
@@ -9,18 +9,18 @@
     text-align: center;
 }
 
-.login-container h1 {
+.auth-container h1 {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     color: #003366;
 }
 
-.login-container .app-title {
+.auth-container .app-title {
     font-weight: bold;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 label {
@@ -32,12 +32,14 @@ label {
 
 input[type="text"], 
 input[type="password"], 
+input[type="email"], /* Ahora email tiene el mismo estilo */
 input[type="number"] {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
 button.btn {
@@ -55,14 +57,57 @@ button.btn:hover {
     background-color: #0056b3;
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 1rem;
-    text-decoration: none;
-    color: #003366;
-    font-weight: bold;
+.messages {
+    margin-bottom: 1rem;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+.message {
+    font-size: 0.9rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message.success {
+    color: green;
+    background-color: #e6f9e6;
+    border: 1px solid #b3e6b3;
+}
+
+.message.error {
+    color: red;
+    background-color: #f9e6e6;
+    border: 1px solid #e6b3b3;
+}
+
+.error {
+    color: red;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    input[type="text"], 
+    input[type="password"], 
+    input[type="email"] {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    button.btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
 }

@@ -6,40 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Finance Manager{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/tags.css' %}">
     <link rel="stylesheet" href="{% static 'css/currencies.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/transactions.css' %}">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="page-wrapper">
         <header>
-            <nav>
+            <nav class="navbar">
                 <ul>
                     <li><a href="{% url 'users:profile' %}" class="{% if request.path == '/users/profile/' %}active{% endif %}">Profile</a></li>
                     <li><a href="{% url 'tags:list_tags' %}" class="{% if request.path == '/tags/list_tags/' %}active{% endif %}">Manage Tags</a></li>
                     <li><a href="{% url 'transactions:transaction_list' %}" class="{% if request.path == '/transactions/transaction_list/' %}active{% endif %}">History</a></li>
                     <li><a href="{% url 'currencies:convert' %}" class="{% if request.path == '/currencies/convert/' %}active{% endif %}">Currencies</a></li>
-                    <li><a href="#" class="{% if request.path == '/reports/' %}active{% endif %}">Reports</a></li>
-                    <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
-                    <li>
-                        <a href="{% url 'users:logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                        <form id="logout-form" method="post" action="{% url 'users:logout' %}" style="display: none;">
-                            {% csrf_token %}
-                        </form>
-                    </li>
+                    <li><a href="#">Reports</a></li>
                 </ul>
             </nav>
+            <div class="user-menu">
+                <details id="user-menu-dropdown" class="dropdown">
+                    <summary class="user-icon">
+                        <img src="{% static 'images/icon.png' %}" alt="User Icon">
+                    </summary>
+                    <ul class="submenu">
+                        <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
+                        <li>
+                            <a href="{% url 'users:logout' %}" 
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               Logout
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+                <form id="logout-form" method="post" action="{% url 'users:logout' %}" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </div>
+            
         </header>
-
+       
+        
+        
+        
         <main>
             {% block content %}
             {% endblock %}
         </main>
 
         <footer>
-            <p>&copy; 2024 My Finance Manager | Built with ❤️ by You</p>
+            <p>&copy; 2024 My Finance Manager | Built with ❤️ by eliasgv</p>
         </footer>
     </div>
+    <script>
+        // Selecciona el elemento <details>
+        const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+        // Escucha eventos de clic en todo el documento
+        document.addEventListener('click', (event) => {
+               // Si el clic ocurre fuera del <details>, se cierra
+            if (userMenuDropdown.hasAttribute('open') && !userMenuDropdown.contains(event.target)) {
+                userMenuDropdown.removeAttribute('open');
+            }
+        });
+
+    </script>
 </body>
 </html>
