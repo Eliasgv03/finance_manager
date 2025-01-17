@@ -10,25 +10,7 @@
         {% if transaction %}Edit Transaction{% else %}Add New Transaction{% endif %}
     </h1>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="message {{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if form.errors %}
-        <div class="form-errors">
-            <ul>
-                {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                        <li>{{ field|capfirst }}: {{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+   
 
     <form method="post" class="styled-form">
         {% csrf_token %}

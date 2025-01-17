@@ -11,9 +11,12 @@ body {
     min-width: 100hv;
     overflow-y: scroll;
     scrollbar-width: none;
+    align-items: center;
+    justify-content: center;
+
 }
 body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari y Edge */
+    display: none; 
 }
 .page-wrapper {
     display: flex;
@@ -33,13 +36,13 @@ header {
     z-index: 10;
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between; /* Espaciado entre elementos */
+    justify-content: space-between; 
     align-items: center;
     min-height: 60px;
     width: 100%;
 }
 
-/* Centrar los elementos del navbar */
+
 header nav {
     flex-grow: 1;
     display: flex;
@@ -69,7 +72,7 @@ header nav ul li a {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #003366; /* Azul oscuro */
+    background-color: #003366;
     color: white;
     padding: 10px 0;
 }
@@ -124,13 +127,13 @@ header nav ul li a {
     background: white;
     min-width: 150px;
     position: absolute;
-    top: 100%; /* Alineado debajo del botón */
+    top: 100%; 
     right: 0;
     z-index: 100;
 }
 
 .dropdown[open] .submenu {
-    display: block; /* Mostrar contenido si el dropdown está abierto */
+    display: block; 
 }
 
 .submenu li {
@@ -148,7 +151,7 @@ header nav ul li a {
 }
 
 main {
-    width: 900px; /* Ancho estándar para todas las plantillas */
+    width: 900px; 
     margin: 6rem auto;
     background: white;
     padding: 2rem;
@@ -156,8 +159,8 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex-grow: 1;
     text-align: center;
-    min-height: 400px; /* Altura mínima */
-    overflow-y: auto; /* Permitir scroll si el contenido excede */
+    min-height: 400px; 
+    overflow-y: auto; 
     scrollbar-width: none;
 }
 

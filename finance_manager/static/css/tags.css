@@ -14,7 +14,7 @@
 
 /* Títulos */
 .page-title {
-    font-size: 2rem; /* Tamaño ligeramente mayor */
+    font-size: 2rem; 
     color: #003366;
     margin-bottom: 1rem;
     font-weight: bold;
@@ -31,8 +31,8 @@
     transition: background-color 0.3s ease;
     height: 40px;
     width: 120px;
-    text-decoration: none; /* Elimina subrayado en <a> */
-    border: none; /* Quitar bordes */
+    text-decoration: none; 
+    border: none;
     text-align: center;
 }
 
@@ -75,7 +75,7 @@
 
 /* Botón Eliminar */
 .btn-delete {
-    background-color: #007bff; /* Color azul uniforme */
+    background-color: #007bff; 
     color: white;
 }
 
@@ -89,7 +89,7 @@
     overflow-y: auto;
     width: 600px;
     max-height: 250px;
-    border: 1px solid #ddd; /* Borde alrededor de la tabla */
+    border: 1px solid #ddd; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
@@ -98,13 +98,13 @@
 .tags-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem; /* Tamaño de fuente compacto */
+    font-size: 0.9rem; 
     text-align: center;
 }
 
 .tags-table th,
 .tags-table td {
-    padding: 0.5rem; /* Reducir el padding */
+    padding: 0.5rem; 
     border-bottom: 1px solid #ddd;
     text-align: center;
 }
@@ -115,10 +115,10 @@
     position: sticky;
     top: 0;
     z-index: 1;
-    padding: 0.5rem ; /* Incrementa el padding vertical */
+    padding: 0.5rem ; 
 
-    min-height: 10px; /* Altura mínima adicional (opcional) */
-    font-size: 1rem; /* Ajustar tamaño de fuente si lo deseas */
+    min-height: 10px; 
+    font-size: 1rem; 
 }
 
 .tags-table .tag-item.selected {
@@ -128,11 +128,11 @@
 
 /* Filas compactas */
 .tags-table tr {
-    line-height: 1.2; /* Altura más compacta */
+    line-height: 1.2; 
 }
 
 .tags-table tr:nth-child(odd) {
-    background-color: #f9f9f9; /* Alternar colores */
+    background-color: #f9f9f9; 
 }
 
 .tags-table tr:nth-child(even) {
@@ -144,39 +144,39 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem; /* Separación entre los grupos de campos */
+    gap: 1.5rem; 
 }
 
 .form-fields {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* Separación entre el label y el input */
-    width: 100%; /* Ajustar al contenedor principal */
-    max-width: 300px; /* Ancho máximo para los campos */
+    gap: 0.5rem; 
+    width: 100%;
+    max-width: 300px; 
 }
 
 .form-fields label {
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    text-align: left; /* Alinear el texto del label a la izquierda */
+    text-align: left; 
 }
 
 .form-fields input[type="text"],
 .form-fields select,
 .form-fields input[type="color"] {
-    width: 100%; /* Usar todo el ancho disponible */
-    height: 40px; /* Altura uniforme */
+    width: 100%; 
+    height: 40px;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 0.5rem;
     font-size: 1rem;
-    box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
+    box-sizing: border-box; 
 }
 /* Responsividad */
 @media (max-width: 768px) {
     .tags-container {
-        max-width: 100%; /* Ajustar ancho a pantallas pequeñas */
+        max-width: 100%; 
         padding: 1rem;
     }
 
@@ -188,7 +188,7 @@
         font-size: 0.85rem;
     }
 }
-/* Contenedor de confirmación */
+
 .confirmation-container {
     max-width: 600px;
     margin: 2rem auto;
@@ -199,11 +199,11 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Formulario de confirmación */
+
 .confirmation-form {
     display: flex;
-    justify-content: center; /* Centrar los botones horizontalmente */
-    gap: 1rem; /* Espaciado uniforme entre los botones */
+    justify-content: center; 
+    gap: 1rem;
 }
 
 .confirmation-buttons{

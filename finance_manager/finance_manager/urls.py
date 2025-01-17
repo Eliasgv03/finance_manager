@@ -19,7 +19,7 @@ from django.urls import path , include
 from django.shortcuts import redirect
 
 def redirect_to_login(request):
-    return redirect('users/login')  # 'login' debe ser el nombre de tu vista de inicio de sesión
+    return redirect('users/login')  
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,6 @@ urlpatterns = [
     path('tags/', include('tags.urls')),
     path('currencies/', include('currencies.urls')),
     path('transactions/', include('transactions.urls')),
-    path('', redirect_to_login),  # Redirigir al inicio de sesión por defecto
+    path('', redirect_to_login), 
    
 ]

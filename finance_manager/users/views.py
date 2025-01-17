@@ -47,7 +47,7 @@ def register_view(request):
         return redirect('users:profile')
     
     storage = get_messages(request)
-    list(storage)  # Forzar iteración para limpiar mensajes antiguos
+    list(storage)  
     
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -79,10 +79,16 @@ def profile_view(request):
 def edit_initial_balance_view(request):
     profile = request.user.profile
     currencies = Currency.objects.all()
+
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
+
+           
+            if 'default_currency' in form.changed_data:  
+                profile.update_balance_for_new_currency()
+
             messages.success(request, "Profile updated successfully.")
             return redirect('users:profile')
         else:

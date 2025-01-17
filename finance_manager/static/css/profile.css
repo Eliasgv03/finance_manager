@@ -35,11 +35,11 @@ body {
 }
 
 .profile-balance.positive {
-    color: #28a745; /* Verde */
+    color: #28a745;
 }
 
 .profile-balance.negative {
-    color: #dc3545; /* Rojo */
+    color: #dc3545;
 }
 
 /* Botón flotante */
@@ -121,8 +121,8 @@ input:focus, select:focus {
     transition: background-color 0.3s ease;
     height: 40px;
     width: 120px;
-    text-decoration: none; /* Elimina subrayado en <a> */
-    border: none; /* Quitar bordes */
+    text-decoration: none; 
+    border: none; 
     text-align: center;
     margin-bottom:1rem;
 }

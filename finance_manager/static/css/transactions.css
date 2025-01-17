@@ -22,20 +22,20 @@
 .filters {
     display: flex;
     justify-content: center;
-    align-items: center; /* Alinear verticalmente */
+    align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
 .filters-form select {
-    height: 40px; /* Igual altura que los botones */
-    padding: 0.6rem 1.2rem; /* Igual espacio interno */
+    height: 40px; 
+    padding: 0.6rem 1.2rem; 
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #f9f9f9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    width: 120px; /* Igual ancho que los botones */
+    width: 120px; 
 }
 
 .filters-form select:focus {
@@ -104,8 +104,8 @@
     transition: all 0.3s ease;
     border: none;
     text-align: center;
-    height: 40px; /* Mantener consistencia con filtros */
-    width: 120px; /* Ancho uniforme */
+    height: 40px;
+    width: 120px; 
 }
 
 .transaction-actions .btn:hover {
@@ -179,7 +179,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    align-items: center; /* Centramos todos los elementos */
+    align-items: center; 
 }
 
 .form-group {
@@ -194,31 +194,31 @@
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    text-align: center; /* Etiquetas centradas */
+    text-align: center; 
 }
 
 .form-control {
     width: 300px;
-    max-width: 450px; /* Limitar ancho máximo */
-    height: 30px; /* Altura uniforme para todos */
+    max-width: 450px; 
+    height: 30px; 
     padding: 0.6rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    text-align: center; /* Centrar texto */
+    text-align: center;
     background: #f9f9f9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-control2 {
     width: 333px;
-    max-width: 500px; /* Limitar ancho máximo */
-    height: 50px; /* Altura uniforme para todos */
+    max-width: 500px; 
+    height: 50px; 
     padding: 0.6rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    text-align: center; /* Centrar texto */
+    text-align: center; 
     background: #f9f9f9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -232,14 +232,14 @@
 textarea {
     width: 100px;
     max-width: 500px;
-    height: 150px; /* Altura específica */
+    height: 150px; 
     padding: 0.6rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
     background: #f9f9f9;
-    text-align: center; /* Texto centrado */
-    resize: none; /* Deshabilitar redimensionamiento */
+    text-align: center; 
+    resize: none; 
 }
 
 /* Botón de Guardar */
@@ -251,8 +251,8 @@ textarea {
     transition: background-color 0.3s ease;
     height: 40px;
     width: 120px;
-    text-decoration: none; /* Elimina subrayado en <a> */
-    border: none; /* Quitar bordes */
+    text-decoration: none; 
+    border: none; 
     text-align: center;
 }
 
@@ -269,7 +269,7 @@ textarea {
 .type-toggle {
     display: flex;
     gap: 1.5rem;
-    justify-content: center; /* Centramos los botones de tipo */
+    justify-content: center; 
     width: 100%;
 }
 
@@ -279,8 +279,8 @@ input[type="radio"] {
 
 input[type="radio"] + .btn-toggle {
     display: inline-block;
-    width: 100px; /* Botones más grandes */
-    height: 30px; /* Altura uniforme */
+    width: 100px; 
+    height: 30px; 
     padding: 0.6rem 1rem;
     border: 2px solid #ccc;
     border-radius: 5px;
@@ -289,7 +289,7 @@ input[type="radio"] + .btn-toggle {
     background-color: #f9f9f9;
     font-weight: bold;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    line-height: 30px; /* Centrar texto verticalmente */
+    line-height: 30px;
     
 }
 
@@ -337,11 +337,11 @@ input[type="radio"]:checked + .btn-toggle {
     }
 
     input[type="radio"] + .btn-toggle {
-        width: 120px; /* Botones más pequeños en pantallas pequeñas */
+        width: 120px; 
     }
 
     textarea {
-        height: 80px; /* Reducir altura en pantallas pequeñas */
+        height: 80px; 
     }
 }
 

@@ -32,7 +32,7 @@ label {
 
 input[type="text"], 
 input[type="password"], 
-input[type="email"], /* Ahora email tiene el mismo estilo */
+input[type="email"], 
 input[type="number"] {
     width: 100%;
     padding: 0.5rem;
@@ -88,7 +88,7 @@ button.btn:hover {
     text-align: left;
 }
 
-/* Responsiveness */
+
 @media (max-width: 480px) {
     .auth-container {
         margin: 1rem;

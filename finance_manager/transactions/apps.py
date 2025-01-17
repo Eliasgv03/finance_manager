@@ -5,4 +5,4 @@ class TransactionsConfig(AppConfig):
     name = 'transactions'
 
     def ready(self):
-        import transactions.signals  # Asegúrate de que las señales se registren cuando se inicie la app
+        import transactions.signals  

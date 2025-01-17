@@ -14,7 +14,7 @@
 
 /* Títulos */
 .converter-title {
-    font-size: 2rem; /* Tamaño ligeramente mayor */
+    font-size: 2rem; 
     color: #003366;
     margin-bottom: 1rem;
     font-weight: bold;
@@ -74,19 +74,19 @@
 .currency-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem; /* Tamaño de fuente compacto */
+    font-size: 0.9rem; 
     text-align: center;
 }
 
 .currency-table th {
     background-color: #003366;
     color: white;
-    padding: 0.5rem ; /* Incrementa el padding vertical */
-    position: sticky; /* Encabezado fijo */
+    padding: 0.5rem ;
+    position: sticky; 
     top: 0;
     z-index: 1;
-    min-height: 10px; /* Altura mínima adicional (opcional) */
-    font-size: 1rem; /* Ajustar tamaño de fuente si lo deseas */
+    min-height: 10px;
+    font-size: 1rem; 
 }
 
 
