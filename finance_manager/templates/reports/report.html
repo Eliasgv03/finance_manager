@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="financial-report-container">
+        <h1 class="converter-title">Financial reports</h1>
+
+        <!-- Resumen de ingresos y gastos -->
+        <div class="summary row justify-content-center mt-4">
+            <div class="col-md-5 total-income text-center">
+                <h4>Total Income</h4>
+                <p class="amount" style="color: green;">${{ total_income }}</p>
+                <p>{{ income_transactions }} transactions</p>
+            </div>
+            <div class="col-md-5 total-expenses text-center">
+                <h4>Total Expense</h4>
+                <p class="amount" style="color: red;">${{ total_expenses }}</p>
+                <p>{{ expense_transactions }} transactions</p>
+            </div>
+        </div>
+
+        <!-- Gráfico de ingresos y leyenda -->
+        <div class="chart-section row justify-content-center mt-4">
+            <div class="col-md-6">
+                <img src="data:image/png;base64,{{ income_expenses_chart }}" alt="Income by Tag">
+                <div class="legend">
+                    <ul>
+                        {% for tag, color, percentage in income_tags %}
+                            <li>
+                                <span class="color-box" style="background-color: {{ color }};"></span>
+                                {{ tag }} - {{ percentage }}%
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

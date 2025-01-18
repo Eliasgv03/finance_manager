@@ -27,6 +27,8 @@ urlpatterns = [
     path('tags/', include('tags.urls')),
     path('currencies/', include('currencies.urls')),
     path('transactions/', include('transactions.urls')),
+    path('reports/', include('reports.urls')),
     path('', redirect_to_login), 
+    
    
 ]

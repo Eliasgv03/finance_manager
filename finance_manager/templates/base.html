@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/tags.css' %}">
     <link rel="stylesheet" href="{% static 'css/currencies.css' %}">
     <link rel="stylesheet" href="{% static 'css/transactions.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reports.css' %}">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -19,10 +20,10 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="{% url 'users:profile' %}" class="{% if request.path == '/users/profile/' %}active{% endif %}">Profile</a></li>
-                    <li><a href="{% url 'tags:list_tags' %}" class="{% if request.path == '/tags/list_tags/' %}active{% endif %}">Manage Tags</a></li>
                     <li><a href="{% url 'transactions:transaction_list' %}" class="{% if request.path == '/transactions/transaction_list/' %}active{% endif %}">History</a></li>
+                    <li><a href="{% url 'reports:generate_report' %}" class="{% if request.path == '/reports/generate_report/' %}active{% endif %}">Reports</a></li>
                     <li><a href="{% url 'currencies:convert' %}" class="{% if request.path == '/currencies/convert/' %}active{% endif %}">Currencies</a></li>
-                    <li><a href="#">Reports</a></li>
+                   
                 </ul>
             </nav>
             <div class="user-menu">
@@ -32,6 +33,7 @@
                     </summary>
                     <ul class="submenu">
                         <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
+                        <li><a href="{% url 'tags:list_tags' %}">Manage Tags</a></li>
                         <li>
                             <a href="{% url 'users:logout' %}" 
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

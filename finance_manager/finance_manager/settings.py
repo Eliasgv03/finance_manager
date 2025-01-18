@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'currencies',
     'rest_framework',
     'rest_framework.authtoken',
+    'reports',
     
 ]
 

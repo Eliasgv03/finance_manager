@@ -1,0 +1,120 @@
+/* Contenedor principal */
+.financial-report-container {
+    max-width: 800px; 
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Encabezado principal */
+h1 {
+    font-size: 2rem;
+    color: #003366;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Resumen de ingresos y gastos */
+.summary {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten cuando sea necesario */
+}
+
+.total-income, .total-expenses {
+    width: 45%;
+    text-align: center;
+}
+
+.total-income h4, .total-expenses h4 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #003366;
+}
+
+.total-income p, .total-expenses p {
+    font-size: 1.2em;
+    color: #003366;
+}
+
+/* Gráfico y leyenda */
+.chart-section {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Para que los elementos se ajusten en pantallas más pequeñas */
+}
+
+.chart-section img {
+    max-width: 100%;
+    height: auto;
+}
+
+.legend {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #003366; /* Ajuste para reducir el margen */
+}
+
+.legend-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003366;
+}
+
+.color-box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .summary {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .total-income, .total-expenses {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .chart-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-section img {
+        width: 80%;
+    }
+
+    .legend {
+        font-size: 14px;
+    }
+
+    .color-box {
+        width: 12px;
+        height: 12px;
+    }
+}
