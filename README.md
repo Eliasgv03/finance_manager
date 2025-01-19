@@ -1,8 +1,8 @@
-# Finance Manager
+# 💰 Finance Manager
 
 **Finance Manager** is a personal finance management application that allows users to record, organize, and analyze their financial transactions efficiently. With an intuitive interface, advanced tools like a real-time currency converter, and detailed financial analysis graphs, **Finance Manager** will help you take full control of your finances.
 
-## Features
+## ✨ Features
 
 - **User Registration and Personalized Profile**: Users can register, log in, and personalize their profile by choosing the main currency they will use and optionally entering an initial balance.
 - **Customizable Tags**: Users can create and edit custom tags to organize and classify their transactions according to their needs.
@@ -13,7 +13,7 @@
 - **Transaction History Management**: Users can review, edit, and delete their recorded transactions.
 - **User-Friendly Interface**: Developed with an intuitive interface in HTML and CSS for easy navigation.
 
-## Technologies
+## 🛠️ Technologies
 
 - **Backend**: Python with Django
 - **Frontend**: HTML, CSS
@@ -21,7 +21,7 @@
 - **Data Management**: **Pandas**
 - **Currency Conversion API**: Uses an API to get real-time exchange rates.
 
-## Usage Flow
+## 🔄 Usage Flow
 
 1. **Register and Log In**: The first step is to register for the app or log in if you already have an account.
 2. **Profile Setup**: It is recommended to set up your profile immediately, where you can:
@@ -35,11 +35,18 @@
    - Check your **statistics** and **graphs** in the **Reports** section.
 5. **Currency Converter**: Use the **currency converter** tool to perform conversions between over 160 currencies in real time.
 
-### Example Screenshot
+### 📸 Example Screenshots
 
-![Add Transaction](screenshots/new_transaction.png) ![History](screenshots/history.png) ![Reports](screenshots/reports.png) ![Converter](screenshots/converter.png)
+<div style="display: flex; justify-content: space-around;">
+  <img src="path/screenshots/transaction.png" alt="Transaction" width="300">
+  <img src="path/screenshots/history.png" alt="History" width="300">
+  <img src="path/screenshots/reports.png" alt="Reports" width="300">
+  <img src="screenshots/converter.png" alt="Converter" width="300">
+</div>
 
-## Installation
+
+
+## 🚀 Getting Started
 
 1. Clone this repository to your local machine:
    ```bash
@@ -80,3 +87,11 @@
    ```bash
    http://127.0.0.1:8000/
    ```
+## 📬 Contact
+
+If you have any questions or suggestions, feel free to reach out:
+
+- 📧 Email: **carloseliasgon@gmail.com**
+
+## ⭐ Support
+If you found Finance Manager helpful, please consider giving it a star on GitHub ⭐. Your support means the world to us! 🌍
