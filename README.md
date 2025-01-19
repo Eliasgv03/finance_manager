@@ -37,12 +37,14 @@
 
 ### 📸 Example Screenshots
 
-<div style="display: flex; justify-content: space-around;">
-  <img src="path/screenshots/transaction.png" alt="Transaction" width="300">
-  <img src="path/screenshots/history.png" alt="History" width="300">
-  <img src="path/screenshots/reports.png" alt="Reports" width="300">
-  <img src="screenshots/converter.png" alt="Converter" width="300">
-</div>
+| ![Transaction Form](screenshots/transaction.png) | ![Transaction History](screenshots/history.png) |
+|:------------------------------------------------:|:----------------------------------------------:|
+| Transaction Form                                 | Transaction History                             |
+
+| ![Financial Reports](screenshots/reports.png) | ![Currency Converter](screenshots/converter.png) |
+|:---------------------------------------------:|:-----------------------------------------------:|
+| Financial Reports                              | Currency Converter                              |
+
 
 
 
