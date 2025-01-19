@@ -2,38 +2,53 @@
 
 {% block content %}
     <div class="financial-report-container">
-        <h1 class="converter-title">Financial reports</h1>
+        <h1 class="report-title">Financial Reports</h1>
 
         <!-- Resumen de ingresos y gastos -->
-        <div class="summary row justify-content-center mt-4">
-            <div class="col-md-5 total-income text-center">
+        <div class="summary">
+            <div class="summary-item">
                 <h4>Total Income</h4>
-                <p class="amount" style="color: green;">${{ total_income }}</p>
-                <p>{{ income_transactions }} transactions</p>
+                <p class="total-amount income">${{ total_income }}</p>
+                <p class="total-transactions">{{ income_transactions }} Transactions</p>
             </div>
-            <div class="col-md-5 total-expenses text-center">
-                <h4>Total Expense</h4>
-                <p class="amount" style="color: red;">${{ total_expenses }}</p>
-                <p>{{ expense_transactions }} transactions</p>
+            <div class="summary-item">
+                <h4>Total Expenses</h4>
+                <p class="total-amount expense">${{ total_expenses }}</p>
+                <p class="total-transactions">{{ expense_transactions }} Transactions</p>
             </div>
         </div>
 
-        <!-- Gráfico de ingresos y leyenda -->
+       
+
+        <!-- Gráfico de Pastel -->
         <div class="chart-section row justify-content-center mt-4">
             <div class="col-md-6">
                 <img src="data:image/png;base64,{{ income_expenses_chart }}" alt="Income by Tag">
-                <div class="legend">
-                    <ul>
-                        {% for tag, color, percentage in income_tags %}
-                            <li>
-                                <span class="color-box" style="background-color: {{ color }};"></span>
-                                {{ tag }} - {{ percentage }}%
-                            </li>
-                        {% endfor %}
-                    </ul>
+            </div>
+        </div>
+        
+        
+
+        <!-- Gráfico de Barras -->
+        <div class="chart-section row justify-content-center mt-4">
+             <!-- Filtro de Tiempo -->
+         <div class="filters-container">
+            <form method="get" class="filters-form">
+                <select name="time_unit" onchange="this.form.submit()">
+                    <option value="week" {% if time_unit == 'week' %}selected{% endif %}>Week</option>
+                    <option value="15days" {% if time_unit == '15days' %}selected{% endif %}>15 Days</option>
+                    <option value="month" {% if time_unit == 'month' %}selected{% endif %}>Month</option>
+                    <option value="3months" {% if time_unit == '3months' %}selected{% endif %}>3 Months</option>
+                    <option value="6months" {% if time_unit == '6months' %}selected{% endif %}>6 Months</option>
+                    <option value="year" {% if time_unit == 'year' %}selected{% endif %}>Year</option>
+                </select>
+            </form>
+        </div>
+            <div class="col-md-12">
+                <div class="chart-wrapper" style="overflow-x: auto;">
+                    <img src="data:image/png;base64,{{ graph_image }}" alt="Income vs Expense Over Time">
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}

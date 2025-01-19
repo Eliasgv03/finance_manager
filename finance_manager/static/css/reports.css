@@ -1,102 +1,125 @@
-/* Contenedor principal */
+/* Contenedor principal */ 
 .financial-report-container {
-    max-width: 800px; 
+    max-width: 1000px; 
     margin: 2rem auto;
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
     overflow-y: hidden;
-    overflow-x: hidden;
-    scrollbar-width: none;
 }
 
-/* Estilo general */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7fa;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-/* Encabezado principal */
-h1 {
+.report-title {
     font-size: 2rem;
+    font-weight: bold;
     color: #003366;
     margin-bottom: 1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-}
-
-/* Resumen de ingresos y gastos */
-.summary {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap; /* Permite que los elementos se ajusten cuando sea necesario */
-}
-
-.total-income, .total-expenses {
-    width: 45%;
     text-align: center;
 }
 
-.total-income h4, .total-expenses h4 {
-    font-size: 1.5em;
+.summary {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; 
+}
+
+.summary-item {
+    width: 30%; 
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-item h4 {
+    font-size: 1.3em;
     font-weight: bold;
     color: #003366;
 }
 
-.total-income p, .total-expenses p {
-    font-size: 1.2em;
-    color: #003366;
+.total-amount {
+    font-size: 1.5em;
+    margin-top: 10px;
 }
 
-/* Gráfico y leyenda */
+.total-transactions {
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 5px;
+}
+
+.total-amount.income {
+    color: #28a745; 
+}
+
+.total-amount.expense {
+    color: #dc3545;
+}
+
+/* Filtros de Tiempo */
+.filters-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.filters-form select {
+    height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    width: 200px; 
+    text-align: center;
+}
+
+.filters-form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Gráfico de Pastel */
 .chart-section {
     margin-top: 40px;
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap; /* Para que los elementos se ajusten en pantallas más pequeñas */
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .chart-section img {
     max-width: 100%;
     height: auto;
+    border-radius: 8px;
 }
 
-.legend {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #003366; /* Ajuste para reducir el margen */
+/* Gráfico de Barras */
+.chart-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
 }
 
-.legend-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #003366;
-}
-
-.color-box {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    margin-right: 10px;
+.chart-wrapper img {
+    max-width: 100%;
+    border-radius: 8px;
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
     .summary {
-        flex-direction: column;
+        flex-direction: column; 
         align-items: center;
     }
 
-    .total-income, .total-expenses {
-        width: 100%;
+    .summary-item {
+        width: 90%;
         margin-bottom: 20px;
     }
 
@@ -107,14 +130,5 @@ h1 {
 
     .chart-section img {
         width: 80%;
-    }
-
-    .legend {
-        font-size: 14px;
-    }
-
-    .color-box {
-        width: 12px;
-        height: 12px;
     }
 }
