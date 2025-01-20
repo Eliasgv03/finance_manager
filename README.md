@@ -41,11 +41,9 @@
 |:------------------------------------------------:|:----------------------------------------------:|
 | Transaction Form                                 | Transaction History                             |
 
-| ![Financial Reports](screenshots/reports.png) | ![Currency Converter](screenshots/converter.png) |
+| ![Financial Reports](screenshots/reports.png) | ![Currency Converter](screenshots/reports2.png) |
 |:---------------------------------------------:|:-----------------------------------------------:|
-| Financial Reports                              | Currency Converter                              |
-
-
+| Financial Reports                              | Financial Reports 2                             |
 
 
 ## 🚀 Getting Started
