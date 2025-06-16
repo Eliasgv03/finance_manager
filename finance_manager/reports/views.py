@@ -10,123 +10,135 @@ import matplotlib.dates as mdates
 
 matplotlib.use('Agg')
 
+from django.contrib.auth.decorators import login_required
+from datetime import timedelta
+from django.utils import timezone
+
+def _get_image_from_plot(fig):
+    """Converts a Matplotlib figure to a base64 encoded image."""
+    buf = BytesIO()
+    fig.savefig(buf, format='png', bbox_inches='tight', dpi=100)
+    plt.close(fig) 
+    buf.seek(0)
+    return base64.b64encode(buf.getvalue()).decode('utf-8')
+
+def _generate_tags_pie_chart(income_data, expense_data):
+    """Generates a pie chart for income and expense tags. Expects Django QuerySets."""
+    fig, ax = plt.subplots(1, 2, figsize=(16, 7))
+
+   
+    income_tags_df = pd.DataFrame(income_data)
+    if not income_tags_df.empty and income_tags_df['total'].sum() > 0:
+        income_total_sum = income_tags_df['total'].sum()
+        income_tags_df['percentage'] = (income_tags_df['total'] / income_total_sum) * 100
+        ax[0].pie(income_tags_df['total'], colors=income_tags_df['tag__color'].tolist(), startangle=90)
+        ax[0].legend(
+            [f"{name} ({percentage:.1f}%) " for name, percentage in zip(income_tags_df['tag__name'], income_tags_df['percentage'])],
+            title="Income Tags", loc="best", bbox_to_anchor=(0.9, 1))
+    ax[0].set_title('Income by Tag')
+
+   
+    expense_tags_df = pd.DataFrame(expense_data)
+    if not expense_tags_df.empty and expense_tags_df['total'].sum() > 0:
+        expense_total_sum = expense_tags_df['total'].sum()
+        expense_tags_df['percentage'] = (expense_tags_df['total'] / expense_total_sum) * 100
+        ax[1].pie(expense_tags_df['total'], colors=expense_tags_df['tag__color'].tolist(), startangle=90)
+        ax[1].legend(
+            [f"{name} ({percentage:.1f}%) " for name, percentage in zip(expense_tags_df['tag__name'], expense_tags_df['percentage'])],
+            title="Expense Tags", loc="best", bbox_to_anchor=(0.9, 1))
+    ax[1].set_title('Expenses by Tag')
+
+    fig.tight_layout(pad=2.0)
+    return _get_image_from_plot(fig)
+
+
+
+def _generate_time_series_chart(transactions_df, time_unit):
+    """Generates an income vs expense bar chart over time. Handles empty data gracefully."""
+    # Debug prints
+    print('--- Initial DataFrame for Time Series ---')
+    print(transactions_df.head())
+
+    if transactions_df.empty:
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.text(0.5, 0.5, 'No data for time series chart', fontsize=15, ha='center')
+        ax.axis('off')
+        return _get_image_from_plot(fig)
+
+    df = transactions_df.copy()
+    df['date'] = pd.to_datetime(df['date'])
+    df.set_index('date', inplace=True)
+
+    resample_map = {
+        'week': 'W', '15days': '15D', 'month': 'ME',
+        '3months': '3MS', '6months': '6MS', 'year': 'A'
+    }
+    resample_freq = resample_map.get(time_unit, 'ME') # Default to month
+
+    # Resample and align data
+    income_df = df[df['type'] == 'income'].resample(resample_freq)['amount'].sum()
+    expense_df = df[df['type'] == 'expense'].resample(resample_freq)['amount'].sum()
+    
+    aligned_income, aligned_expense = income_df.align(expense_df, join='outer', axis=0, fill_value=0)
+
+    # Debug prints
+    print('--- Aligned Income Data ---')
+    print(aligned_income.head())
+    print('--- Aligned Expense Data ---')
+    print(aligned_expense.head())
+
+    if aligned_income.empty and aligned_expense.empty:
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.text(0.5, 0.5, 'No data to display in chart', fontsize=15, ha='center')
+        ax.axis('off')
+        return _get_image_from_plot(fig)
+
+    # Plotting
+    fig, ax = plt.subplots(figsize=(15, 8))
+    bar_width = pd.Timedelta(days=3) # Adjust width as needed
+    index = aligned_income.index
+
+    ax.bar(index - bar_width/2, aligned_income, width=bar_width, label='Income', color='green', align='center')
+    ax.bar(index + bar_width/2, aligned_expense, width=bar_width, label='Expense', color='red', align='center')
+
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Amount')
+    ax.set_title('Income vs Expense Over Time')
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    plt.xticks(rotation=45, ha="right")
+    ax.legend()
+    fig.tight_layout()
+
+    return _get_image_from_plot(fig)
+
+@login_required
 def generate_report(request):
-    start_date = pd.to_datetime(request.GET.get('start_date', '2020-01-01')) 
-    income_transactions = Transaction.objects.filter(type='income', date__gte=start_date)
-    expense_transactions = Transaction.objects.filter(type='expense', date__gte=start_date)
+    one_year_ago = timezone.now().date() - timedelta(days=365)
+    try:
+        start_date_str = request.GET.get('start_date', one_year_ago.strftime('%Y-%m-%d'))
+        start_date = pd.to_datetime(start_date_str).date()
+    except (ValueError, TypeError):
+        start_date = one_year_ago
+
+    time_unit = request.GET.get('time_unit', 'month')
+
+    base_transactions = Transaction.objects.filter(user=request.user, date__gte=start_date)
+
+    income_transactions = base_transactions.filter(type='income')
+    expense_transactions = base_transactions.filter(type='expense')
 
     total_income = income_transactions.aggregate(total=Sum('amount'))['total'] or 0
     total_expenses = expense_transactions.aggregate(total=Sum('amount'))['total'] or 0
-
     income_transactions_count = income_transactions.count()
     expense_transactions_count = expense_transactions.count()
 
-    income_tags_data = income_transactions.values('tag__name', 'tag__color').annotate(total_income=Sum('amount'))
-    expense_tags_data = expense_transactions.values('tag__name', 'tag__color').annotate(total_expenses=Sum('amount'))
+    income_tags_data = income_transactions.values('tag__name', 'tag__color').annotate(total=Sum('amount')).order_by('-total')
+    expense_tags_data = expense_transactions.values('tag__name', 'tag__color').annotate(total=Sum('amount')).order_by('-total')
 
-    income_tags_df = pd.DataFrame(income_tags_data)
-    expense_tags_df = pd.DataFrame(expense_tags_data)
+    time_series_data = base_transactions.values('date', 'type', 'amount')
 
-    total_income_sum = income_tags_df['total_income'].sum()
-    total_expenses_sum = expense_tags_df['total_expenses'].sum()
-
-    income_tags_df['percentage'] = (income_tags_df['total_income'] / total_income_sum) * 100
-    expense_tags_df['percentage'] = (expense_tags_df['total_expenses'] / total_expenses_sum) * 100
-
-    income_colors = income_tags_df['tag__color'].tolist()
-    expense_colors = expense_tags_df['tag__color'].tolist()
-
-    fig, ax = plt.subplots(1, 2, figsize=(15, 8))  
-    ax[0].pie(income_tags_df['total_income'], colors=income_colors, startangle=90, textprops={'color': 'black', 'fontsize': 18})
-    ax[0].set_title('Income by Tag', fontsize=20)
-    ax[0].legend(
-        labels=[f"{name} - {color} - {percentage:.1f}%" 
-                for name, color, percentage in zip(income_tags_df['tag__name'], income_colors, income_tags_df['percentage'])],
-        loc="center", bbox_to_anchor=(0.5, -0.15), ncol=1, fontsize=14, title_fontsize=16
-    )
-    
-    
-    ax[1].pie(expense_tags_df['total_expenses'], colors=expense_colors, startangle=90, textprops={'color': 'black', 'fontsize': 18})
-    ax[1].set_title('Expenses by Tag', fontsize=20)
-    
-    ax[1].legend(
-        labels=[f"{name} - {color} - {percentage:.1f}%" 
-                for name, color, percentage in zip(expense_tags_df['tag__name'], expense_colors, expense_tags_df['percentage'])],
-        loc="center", bbox_to_anchor=(0.5, -0.15), ncol=1, fontsize=14
-    )
-
-    pie_image = BytesIO()
-    plt.savefig(pie_image, format='png', bbox_inches='tight', dpi=100)
-    pie_image.seek(0)
-    income_expenses_chart = base64.b64encode(pie_image.getvalue()).decode()
-
-    time_unit = request.GET.get('time_unit', 'M') 
-
-    income_transactions = Transaction.objects.filter(type='income').values('date', 'amount')
-    expense_transactions = Transaction.objects.filter(type='expense').values('date', 'amount')
-
-    income_df = pd.DataFrame(income_transactions)
-    expense_df = pd.DataFrame(expense_transactions)
- 
-    income_df['date'] = pd.to_datetime(income_df['date'])
-    expense_df['date'] = pd.to_datetime(expense_df['date'])
-
-    income_df.set_index('date', inplace=True)
-    expense_df.set_index('date', inplace=True)
-
-    if time_unit == 'week':
-        income_df_resampled = income_df.resample('W').sum()  
-        expense_df_resampled = expense_df.resample('W').sum()
-    elif time_unit == '15days':
-        income_df_resampled = income_df.resample('15D').sum() 
-        expense_df_resampled = expense_df.resample('15D').sum()
-    elif time_unit == 'month':
-        income_df_resampled = income_df.resample('M').sum()  
-        expense_df_resampled = expense_df.resample('M').sum()
-    elif time_unit == '3months':
-        income_df_resampled = income_df.resample('3MS').sum()  
-        expense_df_resampled = expense_df.resample('3MS').sum()
-    elif time_unit == '6months':
-        income_df_resampled = income_df.resample('6MS').sum()  
-        expense_df_resampled = expense_df.resample('6MS').sum()
-    elif time_unit == 'year':
-        income_df_resampled = income_df.resample('A').sum()  
-        expense_df_resampled = expense_df.resample('A').sum()
-    else:
-        income_df_resampled = income_df
-        expense_df_resampled = expense_df
-
-    income_df_resampled, expense_df_resampled = income_df_resampled.align(expense_df_resampled, join='outer', axis=0, fill_value=0)
-
-    dates = income_df_resampled.index
-    income_values = income_df_resampled['amount']
-    expense_values = expense_df_resampled['amount']
-
-   
-    fig, ax = plt.subplots(figsize=(15, 8))
-    width = 3  
-    ax.bar(dates - pd.Timedelta(days=width/2), income_values, width, label='Income', color='green')
-    ax.bar(dates + pd.Timedelta(days=width/2), expense_values, width, label='Expense', color='red')
-
-    ax.set_xlabel('Time', fontsize=18)
-    ax.set_ylabel('Amount ($)', fontsize=18)
-    ax.set_title('Income vs Expense Over Time', fontsize=18)
-
- 
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-    plt.xticks(rotation=45, ha="right", fontsize=10)
-
-    ax.legend()
-
-    
-    fig.tight_layout(pad=3.0)
-
-  
-    image_stream = BytesIO()
-    plt.savefig(image_stream, format='png', bbox_inches='tight')
-    image_stream.seek(0)
-    graph_image = base64.b64encode(image_stream.getvalue()).decode()
+    income_expenses_chart = _generate_tags_pie_chart(income_tags_data, expense_tags_data)
+    graph_image = _generate_time_series_chart(pd.DataFrame(time_series_data), time_unit)
 
     context = {
        'total_income': total_income,
@@ -135,7 +147,8 @@ def generate_report(request):
        'expense_transactions': expense_transactions_count,
        'income_expenses_chart': income_expenses_chart,
        'graph_image': graph_image,
-       'time_unit': time_unit
+       'time_unit': time_unit,
+       'start_date': start_date.strftime('%Y-%m-%d'),
     }
 
     return render(request, 'reports/report.html', context)
