@@ -1,0 +1,15 @@
+{% comment %}
+Este es un fragmento de plantilla que contiene solo el contenido dinámico del reporte.
+Será renderizado por la vista HTMX y reemplazará el contenido del div #report-content.
+{% endcomment %}
+
+<div class="report-charts">
+    <div class="chart-container" style="width: 100%; box-sizing: border-box; margin-bottom: 20px;">
+        <h4>Income vs. Expense by Tag</h4>
+        <img src="data:image/png;base64,{{ income_expenses_chart }}" alt="Income/Expense by Tag Chart" style="max-width: 100%; height: auto; border-radius: 8px;">
+    </div>
+    <div class="chart-container" style="width: 100%; box-sizing: border-box;">
+        <h4>Income vs. Expense Over Time</h4>
+        <img src="data:image/png;base64,{{ graph_image }}" alt="Income/Expense Over Time Chart" style="max-width: 100%; height: auto; border-radius: 8px;">
+    </div>
+</div>

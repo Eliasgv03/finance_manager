@@ -5,89 +5,58 @@
 {% block content %}
 <main class="currency-converter-container">
     <h1 class="converter-title">Currency Converter</h1>
-    <form method="GET" action="{% url 'currencies:convert' %}" class="converter-form">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="value">Value:</label>
-            <input 
-                type="number" 
-                id="value" 
-                name="value" 
-                step="any" 
-                min="0" 
-                value="{{ value|default:1 }}" 
-                class="form-control currency-input"
-                required>
-        </div>
+    <form hx-get="{% url 'currencies:conversion_results_partial' %}" 
+      hx-target="#conversion-results" 
+      hx-trigger="keyup changed delay:500ms, change"
+      class="converter-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="value">Value:</label>
+        <input 
+            type="number" 
+            id="value" 
+            name="value" 
+            step="any" 
+            min="0" 
+            value="{{ value|default:1 }}" 
+            class="form-control currency-input"
+            required>
+    </div>
 
-        <div class="form-group">
-            <label for="from_currency">From Currency:</label>
-            <input 
-                list="currency-options" 
-                id="from_currency" 
-                name="from_currency" 
-                value="{{ from_currency|default:user_profile.default_currency.code }}"
-                class="form-control currency-input"
-                required>
-            <datalist id="currency-options">
-                {% for currency in currencies %}
-                    <option value="{{ currency }}"></option>
-                {% endfor %}
-            </datalist>
-        </div>
+    <div class="form-group">
+        <label for="from_currency">From Currency:</label>
+        <input 
+            list="currency-options" 
+            id="from_currency" 
+            name="from_currency" 
+            value="{{ from_currency|default:user_profile.default_currency.code|default:'' }}"
+            class="form-control currency-input"
+            required>
+        <datalist id="currency-options">
+            {% for currency in currencies %}
+                <option value="{{ currency }}"></option>
+            {% endfor %}
+        </datalist>
+    </div>
 
-        <div class="form-group">
-            <label for="to_currency">To Currency (optional):</label>
-            <input 
-                list="currency-options" 
-                id="to_currency" 
-                name="to_currency" 
-                value="{{ to_currency|default:'' }}"
-                class="form-control currency-input">
-            <datalist id="currency-options">
-                {% for currency in currencies %}
-                    <option value="{{ currency }}"></option>
-                {% endfor %}
-            </datalist>
-        </div>
+    <div class="form-group">
+        <label for="to_currency">To Currency (optional):</label>
+        <input 
+            list="currency-options" 
+            id="to_currency" 
+            name="to_currency" 
+            value="{{ to_currency|default:'' }}"
+            class="form-control currency-input">
+        <datalist id="currency-options">
+            {% for currency in currencies %}
+                <option value="{{ currency }}"></option>
+            {% endfor %}
+        </datalist>
+    </div>
+</form>
 
-        <button type="submit" class="btn btn-primary converter-btn">Convert</button>
-    </form>
-
-    {% if conversion_data %}
-        <h2> Conversion Results:</h2>
-        <div class="table-wrapper">
-            <table class="currency-table">
-                <thead>
-                    <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
-                        <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if single_conversion %}
-                        <tr>
-                            <td>{{ to_currency }}</td>
-                            <td>{{ single_conversion.rate|floatformat:2 }}</td>
-                            <td>{{ single_conversion.converted_value|floatformat:2 }}</td>
-                        </tr>
-                    {% else %}
-                        {% for item in conversion_data %}
-                            <tr>
-                                <td>{{ item.currency }}</td>
-                                <td>{{ item.rate|floatformat:2 }}</td>
-                                <td>{{ item.converted_value|floatformat:2 }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-
-    {% if error %}
-        <p class="currency-error">{{ error }}</p>
-    {% endif %}
+<div id="conversion-results" class="mt-4">
+    {% include 'currencies/partials/_conversion_results.html' %}
+</div>
 </main>
 {% endblock %}

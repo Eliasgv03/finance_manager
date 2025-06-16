@@ -18,23 +18,17 @@
             </div>
         </div>
 
-       
+        <!-- Filtros HTMX -->
+        <form hx-get="{% url 'reports:report_content' %}" 
+              hx-target="#report-content" 
+              hx-trigger="change" {# Se activa con cualquier cambio en los inputs del form #}
+              class="report-filters"
+              style="margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
 
-        <!-- Gráfico de Pastel -->
-        <div class="chart-section row justify-content-center mt-4">
-            <div class="col-md-6">
-                <img src="data:image/png;base64,{{ income_expenses_chart }}" alt="Income by Tag">
-            </div>
-        </div>
-        
-        
 
-        <!-- Gráfico de Barras -->
-        <div class="chart-section row justify-content-center mt-4">
-             <!-- Filtro de Tiempo -->
-         <div class="filters-container">
-            <form method="get" class="filters-form">
-                <select name="time_unit" onchange="this.form.submit()">
+            <div class="filter-group" style="display: flex; flex-direction: column;">
+                <label for="time_unit" style="margin-bottom: 5px; font-weight: bold;">Group By:</label>
+                <select id="time_unit" name="time_unit" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                     <option value="week" {% if time_unit == 'week' %}selected{% endif %}>Week</option>
                     <option value="15days" {% if time_unit == '15days' %}selected{% endif %}>15 Days</option>
                     <option value="month" {% if time_unit == 'month' %}selected{% endif %}>Month</option>
@@ -42,13 +36,13 @@
                     <option value="6months" {% if time_unit == '6months' %}selected{% endif %}>6 Months</option>
                     <option value="year" {% if time_unit == 'year' %}selected{% endif %}>Year</option>
                 </select>
-            </form>
-        </div>
-            <div class="col-md-12">
-                <div class="chart-wrapper" style="overflow-x: auto;">
-                    <img src="data:image/png;base64,{{ graph_image }}" alt="Income vs Expense Over Time">
-                </div>
             </div>
-        </div>
+            
+            <!-- No se necesita botón de submit, HTMX maneja los cambios en los inputs -->
+        </form>
+
+    <!-- Este div es el objetivo de las actualizaciones de HTMX -->
+    <div id="report-content">
+        {% include 'reports/partials/_report_content.html' %}
     </div>
 {% endblock %}

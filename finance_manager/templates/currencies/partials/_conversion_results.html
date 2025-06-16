@@ -1,0 +1,35 @@
+{% if error %}
+    <p class="currency-error">{{ error }}</p>
+{% elif conversion_data %}
+    <h2>Conversion Results:</h2>
+    <div class="table-wrapper">
+        <table class="currency-table">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Rate</th>
+                    <th>Converted Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if single_conversion %}
+                    {# Muestra solo la conversión específica si se solicitó #}
+                    <tr>
+                        <td>{{ to_currency }}</td>
+                        <td>{{ single_conversion.rate|floatformat:4 }}</td>
+                        <td>{{ single_conversion.converted_value|floatformat:2 }}</td>
+                    </tr>
+                {% else %}
+                    {# Muestra la tabla completa si no se especificó 'to_currency' #}
+                    {% for item in conversion_data %}
+                        <tr>
+                            <td>{{ item.currency }}</td>
+                            <td>{{ item.rate|floatformat:4 }}</td>
+                            <td>{{ item.converted_value|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

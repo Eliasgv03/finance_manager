@@ -111,8 +111,8 @@ def _generate_time_series_chart(transactions_df, time_unit):
 
     return _get_image_from_plot(fig)
 
-@login_required
-def generate_report(request):
+def get_report_context(request):
+    """Helper function to get the context data for the report."""
     one_year_ago = timezone.now().date() - timedelta(days=365)
     try:
         start_date_str = request.GET.get('start_date', one_year_ago.strftime('%Y-%m-%d'))
@@ -137,10 +137,11 @@ def generate_report(request):
 
     time_series_data = base_transactions.values('date', 'type', 'amount')
 
+    # Generate charts
     income_expenses_chart = _generate_tags_pie_chart(income_tags_data, expense_tags_data)
-    graph_image = _generate_time_series_chart(pd.DataFrame(time_series_data), time_unit)
+    graph_image = _generate_time_series_chart(pd.DataFrame(list(time_series_data)), time_unit)
 
-    context = {
+    return {
        'total_income': total_income,
        'total_expenses': total_expenses,
        'income_transactions': income_transactions_count,
@@ -151,4 +152,14 @@ def generate_report(request):
        'start_date': start_date.strftime('%Y-%m-%d'),
     }
 
+@login_required
+def generate_report(request):
+    """Renders the main report page (shell)."""
+    context = get_report_context(request)
     return render(request, 'reports/report.html', context)
+
+@login_required
+def report_content(request):
+    """Renders the report content partial for HTMX requests."""
+    context = get_report_context(request)
+    return render(request, 'reports/partials/_report_content.html', context)

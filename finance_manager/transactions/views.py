@@ -6,9 +6,9 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-@login_required
-def transaction_list(request):
-    transactions = Transaction.objects.filter(user=request.user)
+def get_transaction_list_context(request):
+    """Helper function to get the context for the transaction list."""
+    transactions = Transaction.objects.filter(user=request.user).order_by('-date', '-id')
 
     # Filtros
     date_filters = {
@@ -33,10 +33,22 @@ def transaction_list(request):
 
     tags = Tag.objects.filter(user=request.user)
     
-    return render(request, 'transactions/transaction_list.html', {
+    return {
         'transactions': transactions,
         'tags': tags,
-    })
+    }
+
+@login_required
+def transaction_list(request):
+    """Renders the main transaction list page (shell)."""
+    context = get_transaction_list_context(request)
+    return render(request, 'transactions/transaction_list.html', context)
+
+@login_required
+def transaction_table_content(request):
+    """Renders the transaction table partial for HTMX requests."""
+    context = get_transaction_list_context(request)
+    return render(request, 'transactions/partials/_transaction_table_content.html', context)
 
 @login_required
 def transaction_create(request):
